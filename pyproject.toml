@@ -1,0 +1,27 @@
+[project]
+name = "automation-mcp"
+version = "1.0.0"
+description = "MCP server for full WordPress control via AI agents"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.21.0",
+    "httpx>=0.27.0",
+    "Pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "respx>=0.21",
+]
+
+[project.scripts]
+automation-mcp = "automation_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/automation_mcp"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
