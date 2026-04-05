@@ -2,7 +2,42 @@ import json
 
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("automation-mcp")
+MCP_INSTRUCTIONS = """
+# Automation MCP — Server Instructions
+
+MCP server for full WordPress control. Manages multiple sites via the `site` parameter on any tool.
+
+## Elementor Rules (MANDATORY)
+
+When modifying Elementor pages via `execute_php`:
+
+1. **Always clear caches** after modifying `_elementor_data`:
+   ```php
+   delete_post_meta($post_id, '_elementor_element_cache');
+   delete_post_meta($post_id, '_elementor_css');
+   delete_post_meta($post_id, '_elementor_page_assets');
+   delete_option('_elementor_global_css');
+   delete_option('elementor_cache_time');
+   ```
+
+2. **Always add `css_classes`** when using `custom_css` on a container/widget.
+   Use a unique class (e.g. `rn-step-card`) to isolate scope and avoid conflicts.
+
+3. **Figma fidelity**: when translating Figma designs to Elementor, faithfully match
+   padding, gap, flex_direction, flex_align_items, flex_justify_content, width,
+   min_height, border_radius, typography and colors from the Figma metadata.
+
+4. **Widgets created programmatically** (without the Elementor editor) do NOT render.
+   For custom CSS/JS, use an HTML widget.
+
+## Multi-Site
+
+Use `configure(action="add", name="...", url="...", api_key="...")` to add sites.
+Every tool accepts an optional `site` parameter to target a specific site.
+The first site added becomes the default.
+"""
+
+mcp = FastMCP("automation-mcp", instructions=MCP_INSTRUCTIONS)
 
 
 # ─── Configure ───
