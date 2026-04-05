@@ -761,6 +761,21 @@ async def query_db(sql: str, site: str | None = None) -> str:
     return json.dumps(result, ensure_ascii=False, indent=2)
 
 
+# ─── Elementor ───
+
+
+@mcp.tool()
+async def get_elementor_info(site: str | None = None) -> str:
+    """Discover Elementor installation details: available widgets, data structure, cache keys, breakpoints, fonts, and theme components.
+
+    Args:
+        site: Target site name from config.
+    """
+    from automation_mcp.tools.elementor import get_elementor_info as _fn
+    result = await _fn(site=site)
+    return json.dumps(result, ensure_ascii=False, indent=2)
+
+
 # ─── Diagnostics ───
 
 
