@@ -11,7 +11,7 @@ AI Agent (Claude Code / Cursor / Claude Desktop)
 MCP Server (Python - FastMCP)        <-- this repository
     |  HTTP POST
     v
-WordPress Plugin (PHP - REST API)    <-- ~/automation-mcp-plugin/
+WordPress Plugin (PHP - REST API)    <-- included as ZIP in this repo
     |
     v
 WordPress (posts, pages, themes, plugins, media, DB, Elementor...)
@@ -25,10 +25,11 @@ WordPress (posts, pages, themes, plugins, media, DB, Elementor...)
 
 ## Installation
 
-### 1. Install the MCP server
+### 1. Clone and install the MCP server
 
 ```bash
-cd ~/automation-mcp
+git clone https://github.com/alissonjcdev/mcp-wordpress.git
+cd mcp-wordpress
 pipx install -e .
 ```
 
@@ -45,10 +46,11 @@ claude mcp add automation-mcp -- automation-mcp
 
 ### 3. Install the WordPress plugin
 
-1. Zip the `~/automation-mcp-plugin/` directory
-2. In WP Admin, go to **Plugins > Add New > Upload Plugin**
-3. Upload the ZIP and activate
-4. Go to **Automation MCP > API Keys** and create a new key
+The plugin ZIP is included in this repository (`automation-mcp-plugin.zip`).
+
+1. In WP Admin, go to **Plugins > Add New > Upload Plugin**
+2. Upload `automation-mcp-plugin.zip` and activate
+3. Go to **Automation MCP > API Keys** and create a new key
 
 ### 4. Configure the site
 
