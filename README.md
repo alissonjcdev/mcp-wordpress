@@ -29,17 +29,10 @@ No clone, no manual install. `uvx` handles everything automatically.
 
 ### 2. Install the WordPress plugin
 
-**With WP-CLI (one command):**
-```bash
-wp plugin install https://github.com/alissonjcdev/mcp-wordpress/releases/download/v1.0.0/automation-mcp-plugin.zip --activate
-```
-
-**Or manually:**
 1. Download [`automation-mcp-plugin.zip`](https://github.com/alissonjcdev/mcp-wordpress/releases/download/v1.0.0/automation-mcp-plugin.zip)
 2. In WP Admin, go to **Plugins > Add New > Upload Plugin**
 3. Upload the ZIP and activate
-
-Then create an API key at **WP Admin > Automation MCP > API Keys**.
+4. Go to **Automation MCP > API Keys** and create a new key
 
 ### 3. Configure the site
 
