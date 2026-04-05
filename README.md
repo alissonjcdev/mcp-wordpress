@@ -1,144 +1,144 @@
 # Automation MCP
 
-MCP server para controle total do WordPress via AI agents (Claude Code, Cursor, Claude Desktop).
+MCP server for full WordPress control via AI agents (Claude Code, Cursor, Claude Desktop).
 
-## Arquitetura
+## Architecture
 
 ```
 AI Agent (Claude Code / Cursor / Claude Desktop)
     |
     v
-MCP Server (Python - FastMCP)        <-- este repositorio
+MCP Server (Python - FastMCP)        <-- this repository
     |  HTTP POST
     v
-Plugin WordPress (PHP - REST API)    <-- ~/automation-mcp-plugin/
+WordPress Plugin (PHP - REST API)    <-- ~/automation-mcp-plugin/
     |
     v
-WordPress (posts, paginas, temas, plugins, media, DB, Elementor...)
+WordPress (posts, pages, themes, plugins, media, DB, Elementor...)
 ```
 
-## Requisitos
+## Requirements
 
 - Python 3.10+
-- WordPress com o plugin **Automation MCP** instalado e ativo
-- API key gerada no painel do plugin (WP Admin > Automation MCP > Chaves API)
+- WordPress with the **Automation MCP** plugin installed and active
+- API key generated in the plugin panel (WP Admin > Automation MCP > API Keys)
 
-## Instalacao
+## Installation
 
-### 1. Instalar o MCP server
+### 1. Install the MCP server
 
 ```bash
 cd ~/automation-mcp
 pipx install -e .
 ```
 
-Ou com pip:
+Or with pip:
 ```bash
 pip install -e .
 ```
 
-### 2. Registrar no Claude Code
+### 2. Register in Claude Code
 
 ```bash
 claude mcp add automation-mcp -- automation-mcp
 ```
 
-### 3. Instalar o plugin WordPress
+### 3. Install the WordPress plugin
 
-1. Comprimir o diretorio `~/automation-mcp-plugin/` como ZIP
-2. No WP Admin, ir em **Plugins > Adicionar novo > Enviar plugin**
-3. Fazer upload do ZIP e ativar
-4. Ir em **Automation MCP > Chaves API** e criar uma nova chave
+1. Zip the `~/automation-mcp-plugin/` directory
+2. In WP Admin, go to **Plugins > Add New > Upload Plugin**
+3. Upload the ZIP and activate
+4. Go to **Automation MCP > API Keys** and create a new key
 
-### 4. Configurar o site
+### 4. Configure the site
 
-Dentro do Claude Code (ou outro MCP client):
+Inside Claude Code (or another MCP client):
 
 ```
-configure(action="add", name="meusite", url="https://meusite.com", api_key="amcp_xxxx...")
+configure(action="add", name="mysite", url="https://mysite.com", api_key="amcp_xxxx...")
 ```
 
 ## Tools (39)
 
 ### Configure (1)
-| Tool | Descricao |
-|------|-----------|
-| `configure` | Gerenciar sites: add, remove, list, test |
+| Tool | Description |
+|------|-------------|
+| `configure` | Manage sites: add, remove, list, test |
 
 ### Content Management (8)
-| Tool | Descricao |
-|------|-----------|
-| `create_post` | Criar post, pagina ou CPT |
-| `update_post` | Atualizar post existente |
-| `delete_post` | Enviar post para lixeira ou deletar permanente |
-| `list_posts` | Listar posts com filtros (tipo, status, busca, categoria) |
-| `get_post` | Obter post completo por ID (conteudo, meta, categorias, imagem) |
-| `manage_taxonomies` | Criar/listar/deletar categorias e tags |
-| `manage_seo` | Gerenciar meta SEO (title, description, robots) |
-| `manage_post_meta` | CRUD de post meta customizado |
+| Tool | Description |
+|------|-------------|
+| `create_post` | Create post, page or CPT |
+| `update_post` | Update existing post |
+| `delete_post` | Trash or permanently delete post |
+| `list_posts` | List posts with filters (type, status, search, category) |
+| `get_post` | Get full post by ID (content, meta, categories, image) |
+| `manage_taxonomies` | Create/list/delete categories and tags |
+| `manage_seo` | Manage SEO meta (title, description, robots) |
+| `manage_post_meta` | CRUD for custom post meta |
 
 ### Themes (4)
-| Tool | Descricao |
-|------|-----------|
-| `list_themes` | Listar temas instalados |
-| `install_theme` | Instalar tema do repositorio WordPress |
-| `activate_theme` | Ativar tema |
-| `customize_theme` | Modificar opcoes do Customizer |
+| Tool | Description |
+|------|-------------|
+| `list_themes` | List installed themes |
+| `install_theme` | Install theme from WordPress repository |
+| `activate_theme` | Activate theme |
+| `customize_theme` | Modify Customizer options |
 
 ### Plugins (4)
-| Tool | Descricao |
-|------|-----------|
-| `list_plugins` | Listar plugins instalados |
-| `install_plugin` | Instalar plugin do repositorio WordPress |
-| `activate_plugin` | Ativar/desativar plugin |
-| `delete_plugin` | Deletar plugin |
+| Tool | Description |
+|------|-------------|
+| `list_plugins` | List installed plugins |
+| `install_plugin` | Install plugin from WordPress repository |
+| `activate_plugin` | Activate/deactivate plugin |
+| `delete_plugin` | Delete plugin |
 
-### Media (3)
-| Tool | Descricao |
-|------|-----------|
-| `upload_media` | Upload de arquivo para biblioteca de midia |
-| `bulk_upload_media` | Upload em massa de multiplos arquivos |
-| `list_media` | Listar itens da biblioteca de midia |
-| `delete_media` | Deletar item de midia |
+### Media (4)
+| Tool | Description |
+|------|-------------|
+| `upload_media` | Upload file to media library |
+| `bulk_upload_media` | Bulk upload multiple files |
+| `list_media` | List media library items |
+| `delete_media` | Delete media item |
 
 ### Settings (5)
-| Tool | Descricao |
-|------|-----------|
-| `get_options` | Ler opcoes do WordPress (site_url, blogname, etc) |
-| `update_options` | Atualizar opcoes |
-| `manage_menus` | Criar/editar menus de navegacao |
-| `manage_widgets` | Gerenciar widgets e sidebars |
-| `manage_users` | CRUD de usuarios WordPress |
+| Tool | Description |
+|------|-------------|
+| `get_options` | Read WordPress options (site_url, blogname, etc) |
+| `update_options` | Update options |
+| `manage_menus` | Create/edit navigation menus |
+| `manage_widgets` | Manage widgets and sidebars |
+| `manage_users` | CRUD for WordPress users |
 
 ### Low-Level (8)
-| Tool | Descricao |
-|------|-----------|
-| `execute_php` | Executar codigo PHP arbitrario no WordPress |
-| `wp_cli` | Executar comandos WP-CLI |
-| `read_file` | Ler arquivo do servidor |
-| `write_file` | Escrever arquivo no servidor |
-| `edit_file` | Substituicao de texto em arquivo |
-| `delete_file` | Deletar arquivo |
-| `list_directory` | Listar conteudo de diretorio |
-| `query_db` | Executar query SQL no banco de dados |
+| Tool | Description |
+|------|-------------|
+| `execute_php` | Execute arbitrary PHP code in WordPress |
+| `wp_cli` | Run WP-CLI commands |
+| `read_file` | Read file from server |
+| `write_file` | Write file to server |
+| `edit_file` | Text replacement in file |
+| `delete_file` | Delete file |
+| `list_directory` | List directory contents |
+| `query_db` | Execute SQL query on database |
 
 ### Elementor (1)
-| Tool | Descricao |
-|------|-----------|
-| `get_elementor_info` | Info completa: widgets, breakpoints, cache keys, estrutura de dados, gotchas |
+| Tool | Description |
+|------|-------------|
+| `get_elementor_info` | Full info: widgets, breakpoints, cache keys, data structure, gotchas |
 
 ### Diagnostics (4)
-| Tool | Descricao |
-|------|-----------|
-| `get_site_overview` | Visao geral do site (versoes, plugins, tema, DB) |
-| `site_health` | Diagnostico de saude do site |
-| `clear_cache` | Limpar caches (Elementor, LiteSpeed, transients) |
-| `optimize_db` | Otimizar tabelas do banco de dados |
+| Tool | Description |
+|------|-------------|
+| `get_site_overview` | Site overview (versions, plugins, theme, DB) |
+| `site_health` | Site health diagnostics |
+| `clear_cache` | Clear caches (Elementor, LiteSpeed, transients) |
+| `optimize_db` | Optimize database tables |
 
-## Elementor — Regras Obrigatorias
+## Elementor — Mandatory Rules
 
-### Cache (CRITICO)
-Ao modificar `_elementor_data` via `execute_php`, SEMPRE limpar caches:
+### Cache (CRITICAL)
+When modifying `_elementor_data` via `execute_php`, ALWAYS clear caches:
 ```php
 delete_post_meta($post_id, '_elementor_element_cache');
 delete_post_meta($post_id, '_elementor_css');
@@ -148,21 +148,21 @@ delete_option('elementor_cache_time');
 ```
 
 ### CSS Classes
-Ao usar `custom_css` em um container/widget, SEMPRE adicionar `css_classes` com classe unica (ex: `rn-step-card`) para isolar escopo e evitar conflitos.
+When using `custom_css` on a container/widget, ALWAYS add `css_classes` with a unique class (e.g. `rn-step-card`) to isolate scope and avoid conflicts.
 
-### Fidelidade Figma
-Ao traduzir Figma para Elementor, validar fielmente: padding, gap, flex_direction, flex_align_items, flex_justify_content, width, min_height, border_radius, typography e cores. Usar metadata do Figma para derivar valores exatos.
+### Figma Fidelity
+When translating Figma to Elementor, faithfully validate: padding, gap, flex_direction, flex_align_items, flex_justify_content, width, min_height, border_radius, typography and colors. Use Figma metadata to derive exact values.
 
-## Seguranca
+## Security
 
-- Toda comunicacao usa HTTPS
-- API keys com hash SHA-256 no banco
-- Permissoes granulares por key (cada key tem abilities especificas)
-- Rate limiting (100 req/min por key)
-- Audit logging de todas as acoes
-- User impersonation (acoes executam como usuario WP vinculado a key)
+- All communication over HTTPS
+- API keys hashed with SHA-256
+- Granular per-key permissions (each key has specific abilities)
+- Rate limiting (100 req/min per key)
+- Audit logging of all actions
+- User impersonation (actions execute as the WP user linked to the key)
 
-## Desenvolvimento
+## Development
 
 ```bash
 cd ~/automation-mcp
@@ -170,6 +170,6 @@ pip install -e ".[dev]"
 pytest
 ```
 
-## Licenca
+## License
 
-Uso privado.
+Private use.
