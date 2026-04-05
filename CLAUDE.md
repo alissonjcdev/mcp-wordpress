@@ -57,6 +57,8 @@ Sufixo `_tablet` ou `_mobile` no nome do setting.
 - `display: block !important` sobrescreve visibility responsiva - usar media queries
 - `custom_css` usa "selector" como placeholder para `.elementor-element-{id}`
 - Elementor 4.x pode não ter `.elementor-widget-container` wrapper
+- Ao usar `custom_css`, SEMPRE adicionar `css_classes` com classe única (ex: `rn-step-card`) para isolar escopo e evitar conflitos
+- Ao traduzir Figma → Elementor, validar fielmente: padding, gap, flex_direction, flex_align_items, flex_justify_content, width, min_height, border_radius, typography e cores
 
 ### Tool get-elementor-info
 Use a tool `get_elementor_info` para descobrir automaticamente widgets disponíveis, breakpoints, cache keys, e estrutura de dados do Elementor instalado no site.
