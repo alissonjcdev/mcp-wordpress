@@ -19,22 +19,26 @@ WordPress (posts, pages, themes, plugins, media, DB, Elementor...)
 
 ## Quick Start
 
-### 1. Add to Claude Code (one command)
+### 1. Install the MCP server
 
 ```bash
-claude mcp add automation-mcp -- uvx --from git+https://github.com/alissonjcdev/mcp-wordpress.git automation-mcp
+pipx install git+https://github.com/alissonjcdev/mcp-wordpress.git
 ```
 
-No clone, no manual install. `uvx` handles everything automatically.
+### 2. Register in Claude Code
 
-### 2. Install the WordPress plugin
+```bash
+claude mcp add automation-mcp -- automation-mcp
+```
+
+### 3. Install the WordPress plugin
 
 1. Download [`automation-mcp-plugin.zip`](https://github.com/alissonjcdev/mcp-wordpress/releases/download/v1.0.0/automation-mcp-plugin.zip)
 2. In WP Admin, go to **Plugins > Add New > Upload Plugin**
 3. Upload the ZIP and activate
 4. Go to **Automation MCP > API Keys** and create a new key
 
-### 3. Configure the site
+### 4. Configure the site
 
 Inside Claude Code, use the `configure` tool:
 
@@ -47,12 +51,13 @@ Done. All 39 tools are now available.
 ## Alternative Installation
 
 <details>
-<summary>With pipx (if you don't have uv)</summary>
+<summary>With uvx (if you have uv installed)</summary>
 
 ```bash
-pipx install git+https://github.com/alissonjcdev/mcp-wordpress.git
-claude mcp add automation-mcp -- automation-mcp
+claude mcp add automation-mcp -- uvx --from git+https://github.com/alissonjcdev/mcp-wordpress.git automation-mcp
 ```
+
+Single command, no persistent install. Requires [uv](https://docs.astral.sh/uv/getting-started/installation/).
 </details>
 
 <details>
@@ -69,7 +74,7 @@ claude mcp add automation-mcp -- automation-mcp
 ## Requirements
 
 - Python 3.10+
-- [uv](https://docs.astral.sh/uv/getting-started/installation/) (recommended) or pipx
+- [pipx](https://pipx.pypa.io/stable/installation/) (recommended) or pip
 - WordPress with the **Automation MCP** plugin installed and active
 
 ## Tools (39)
