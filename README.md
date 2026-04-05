@@ -2,6 +2,19 @@
 
 MCP server for full WordPress control via AI agents (Claude Code, Cursor, Claude Desktop).
 
+## What can it do?
+
+- **Build entire Elementor pages** from Figma designs — containers, widgets, typography, colors, spacing
+- **Create hover effects and animations** via custom CSS on Elementor containers
+- **Manage multiple WordPress sites** from a single installation
+- **Full content management** — create, edit, delete posts, pages and custom post types
+- **Install themes and plugins** from the WordPress repository
+- **Upload media** — images, SVGs, files with automatic optimization
+- **Direct database access** — SQL queries, PHP execution, file management
+- **SEO management** — meta titles, descriptions, robots directives
+- **Elementor integration** — read structure, clear caches, get widget info
+- **Site diagnostics** — health checks, cache clearing, database optimization
+
 ## Architecture
 
 ```
@@ -47,6 +60,29 @@ configure(action="add", name="mysite", url="https://mysite.com", api_key="amcp_x
 ```
 
 Done. All 39 tools are now available.
+
+## Multi-Site Management
+
+You can add as many WordPress sites as you need:
+
+```
+configure(action="add", name="blog", url="https://blog.example.com", api_key="amcp_aaa...")
+configure(action="add", name="store", url="https://store.example.com", api_key="amcp_bbb...")
+configure(action="add", name="client-site", url="https://client.com", api_key="amcp_ccc...")
+```
+
+The first site added becomes the default. To target a specific site, use the `site` parameter on any tool:
+
+```
+list_posts(site="store")
+create_post(title="New Product", type="post", site="client-site")
+execute_php(code="phpinfo();", site="blog")
+```
+
+List all configured sites:
+```
+configure(action="list")
+```
 
 ## Alternative Installation
 
