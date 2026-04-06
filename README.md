@@ -208,6 +208,18 @@ When using `custom_css` on a container/widget, ALWAYS add `css_classes` with a u
 ### Figma Fidelity
 When translating Figma to Elementor, faithfully validate: padding, gap, flex_direction, flex_align_items, flex_justify_content, width, min_height, border_radius, typography and colors. Use Figma metadata to derive exact values.
 
+### Saving `_elementor_data` (CRITICAL)
+Always use `wp_slash()` when saving Elementor data via `update_post_meta`. Without it, WordPress strips backslashes from the JSON string, corrupting the data structure:
+```php
+$json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+update_post_meta($post_id, '_elementor_data', wp_slash($json));
+```
+
+### HTML Attributes in Widget Content
+When modifying the `editor` field of a `text-editor` widget programmatically, be aware that HTML attributes with quoted values (e.g. `<a href="...">`) can get corrupted by the encoding chain (`json_encode` → `wp_slash` → `update_post_meta`). Double-escaped quotes break links and other attributes in the rendered output.
+
+Before inserting HTML with links or attributes, study how the widget stores that content natively via the Elementor editor UI. Each widget has its own way of handling rich content — always replicate the native format rather than assuming raw HTML will survive the encoding pipeline.
+
 ## Figma Best Practices
 
 Organize your Figma design following these guidelines to get the best results when the agent translates it to your site.

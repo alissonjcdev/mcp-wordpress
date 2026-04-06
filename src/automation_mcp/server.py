@@ -30,6 +30,20 @@ When modifying Elementor pages via `execute_php`:
 4. **Widgets created programmatically** (without the Elementor editor) do NOT render.
    For custom CSS/JS, use an HTML widget.
 
+5. **Always use `wp_slash()` when saving `_elementor_data`** via `update_post_meta`.
+   Without it, `wp_unslash()` strips backslashes from the JSON and corrupts the data.
+   ```php
+   $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+   update_post_meta($post_id, '_elementor_data', wp_slash($json));
+   ```
+
+6. **HTML attributes inside widget content get corrupted by the encoding chain.**
+   When the `editor` field of a `text-editor` widget contains `<a href="...">` or other
+   HTML with quoted attributes, `json_encode` → `wp_slash` → `update_post_meta` can
+   double-escape the quotes, breaking links and attributes in the rendered output.
+   Before inserting HTML with links or attributes programmatically, study how the widget
+   stores that content natively (via the Elementor editor UI) and replicate that exact format.
+
 ## Image Optimization (MANDATORY)
 
 When uploading images to WordPress, ALWAYS optimize before uploading:
