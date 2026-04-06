@@ -208,6 +208,49 @@ When using `custom_css` on a container/widget, ALWAYS add `css_classes` with a u
 ### Figma Fidelity
 When translating Figma to Elementor, faithfully validate: padding, gap, flex_direction, flex_align_items, flex_justify_content, width, min_height, border_radius, typography and colors. Use Figma metadata to derive exact values.
 
+## Figma Best Practices
+
+Organize your Figma design following these guidelines to get the best results when the agent translates it to your site.
+
+### Structure
+
+**Use Auto Layout on frames** — Auto Layout defines direction, spacing, and padding in a way the agent reads directly. A frame with Auto Layout becomes a well-structured block on your site with exact spacing preserved.
+
+**Organize frame hierarchy** — Think of each frame as a block on your site. A parent frame containing child frames translates to a main container with inner blocks. The cleaner your layer tree, the more accurate the result.
+
+**Name layers descriptively** — Names like "Hero Section", "Pricing Card", or "Footer Contact" make it easier to communicate with the agent about specific parts of your design. Instead of "Frame 47", use names that describe what the element is.
+
+### Content
+
+**Keep text as text layers** — Every text layer in Figma becomes an editable text block on your site. The agent extracts font family, size, weight, line height, and color automatically.
+
+**Use high-quality images** — Place images in their final aspect ratio and size. The agent automatically optimizes them before uploading (converts to WebP, max 200KB, resized to 800px width).
+
+**Keep icons as SVG components** — Vector icons stay sharp at any size on the site. Group your icons as components in Figma for easy reuse.
+
+### Styles
+
+**Use styles or variables for colors and typography** — When you define colors and text styles in Figma's design system (local styles or variables), the agent can extract consistent values across the entire design.
+
+### Responsive
+
+**Include mobile/tablet variations** — If your Figma file has frames for different screen sizes, the agent can apply specific breakpoints so the site adapts correctly on each device.
+
+### Quick Reference: Figma → Site
+
+| Figma Element | Site Result |
+|---|---|
+| Frame with Auto Layout | Structural block/container |
+| Text layer | Editable text block |
+| Rectangle/frame with image fill | Image |
+| Icon/SVG component | Vector icon |
+| Frame with text + icon | Icon box with text |
+| Button (frame with text + background) | Clickable button |
+| Group of social icons | Social media icon links |
+| Frame with multiple cards | Item grid/list |
+| Frame with background image + overlay | Hero section with background |
+| Nested frames | Nested containers |
+
 ## Security
 
 - All communication over HTTPS

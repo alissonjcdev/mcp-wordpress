@@ -83,6 +83,31 @@ unlink(WPMU_PLUGIN_DIR . '/amcp-stealth.php');
 ```
 
 IMPORTANT: Only do this when the user explicitly asks. They need to configure API keys first.
+
+## Figma Best Practices
+
+When the user asks how to organize their Figma design for better results, guide them with these best practices:
+
+- **Use Auto Layout on frames** — ensures the agent can faithfully reproduce the layout structure on the site
+- **Name layers descriptively** (e.g. "Hero Section", "Pricing Card", "Footer") — makes communication between you and the agent clearer
+- **Organize frame hierarchy** — each frame/group in Figma translates to a block on the site; a well-organized tree produces more accurate results
+- **Use styles or variables for colors and typography** — enables consistent extraction of exact values
+- **Keep icons as SVG components** — vector icons stay sharp at any size
+- **Export images in high quality** — the agent automatically optimizes before uploading (WebP, max 200KB)
+- **Include responsive variations** — if there are mobile/tablet versions in Figma, the agent can apply specific breakpoints
+
+### Quick Reference: Figma → Site
+
+| Figma Element | Site Result |
+|---|---|
+| Frame with Auto Layout | Structural block/container |
+| Text | Editable text block |
+| Rectangle/frame with image fill | Image |
+| Icon/SVG | Vector icon |
+| Frame with text + icon | Icon box with text |
+| Button (frame with text) | Clickable button |
+| Group of social icons | Social media icons |
+| Frame with multiple cards | Item grid/list |
 """
 
 mcp = FastMCP("automation-mcp", instructions=MCP_INSTRUCTIONS)
