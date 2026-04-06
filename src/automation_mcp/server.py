@@ -30,6 +30,37 @@ When modifying Elementor pages via `execute_php`:
 4. **Widgets created programmatically** (without the Elementor editor) do NOT render.
    For custom CSS/JS, use an HTML widget.
 
+## Image Optimization (MANDATORY)
+
+When uploading images to WordPress, ALWAYS optimize before uploading:
+
+1. **Format**: Convert to WebP (never upload heavy PNG/JPG).
+2. **Max size**: 200KB per image.
+3. **Dimensions**: Resize to max 800px width (unless user requests larger).
+4. **Quality**: WebP quality 80-85 (reduce if needed to stay under 200KB).
+5. **Process**: Download from source → resize with GD/Imagick → convert to WebP → upload.
+
+```php
+// Standard optimization pattern via execute_php
+require_once ABSPATH . 'wp-admin/includes/image.php';
+$img = imagecreatefrompng($path); // or imagecreatefromjpeg
+$w = imagesx($img); $h = imagesy($img);
+if ($w > 800) {
+    $new_h = intval($h * 800 / $w);
+    $resized = imagecreatetruecolor(800, $new_h);
+    imagealphablending($resized, false);
+    imagesavealpha($resized, true);
+    imagecopyresampled($resized, $img, 0, 0, 0, 0, 800, $new_h, $w, $h);
+    imagedestroy($img);
+    $img = $resized;
+}
+$webp_path = $upload_dir['path'] . '/filename.webp';
+imagewebp($img, $webp_path, 82);
+imagedestroy($img);
+```
+
+This applies to ALL images: photos, Figma compositions, screenshots. Does NOT apply to small SVG icons.
+
 ## Multi-Site
 
 Use `configure(action="add", name="...", url="...", api_key="...")` to add sites.
